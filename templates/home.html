@@ -13,7 +13,7 @@
         margin-top: 20px;
     }
 
-    textarea {
+    .content {
         margin-top: 30px;
         width: 90%;
         height: 80%;
@@ -33,7 +33,7 @@
         left: calc(-50vw + 50%);
         right: calc(-50vw + 50%);
         width: 90%;
-        background-image: linear-gradient(to right, green, yellow, red);
+        background-image: linear-gradient(to right, red, yellow, green);
         margin: auto;
         border-radius: 10px;
     }
@@ -50,8 +50,8 @@
 
 <div class="outer">
     <h1 class="title">Sentiment Analysis</h1>
-    <textarea oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-    autofocus></textarea>
+    <textarea oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"
+    class="content" placeholder="Type here..." onclick="$(this).attr('placeholder','')"></textarea>
 </div>
 
 <div class="sentiment"></div>
@@ -60,8 +60,16 @@
 <script>
     var last_value = 0
 
+    function calculate() {
+        var text = $('.content').val()
+        $.get(`/score/${text}`, (resp) => {
+            console.log(resp.score)
+            update(resp.score)
+        })
+    }
+
     function calc_posn(value) {
-        var width = document.getElementsByClassName('sentiment')[0].offsetWidth
+        var width = $('.sentiment').outerWidth()
         var page = window.innerWidth
         
         var slider = (value + 1) / 2 * width
@@ -75,6 +83,7 @@
         last_value = value
         var posn = calc_posn(value)
 
+        $('.marker').stop()
         $('.marker').animate({'left': posn}, 1000)
     }
 
@@ -86,7 +95,7 @@
 
     $(window).resize(hard_update)
 
-    $(() => {
-        hard_update()
-    })
+    $('.content').keyup(calculate)
+
+    $(hard_update)
 </script>

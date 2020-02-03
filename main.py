@@ -7,10 +7,9 @@ app = Flask(__name__)
 def index():
     return render_template('home.html')
 
-@app.route('/score/<b64>')
-def score(b64):
-    text = b64d(b64)
-    avg, good, bad = score_text(b64)
+@app.route('/score/<text>')
+def score(text):
+    avg, good, bad = score_text(text)
     return jsonify({
         'score': avg,
         'good': good,
