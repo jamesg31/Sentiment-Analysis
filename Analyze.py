@@ -1,5 +1,7 @@
 from senticnet5 import word
 
+
+
 def score(s):
   bad = []
   good = []
@@ -19,7 +21,11 @@ def score(s):
       total+=1
       print(scoreOne(i[0]))
       sum+=scoreOne(i[0])
-  return [sum/total,good, bad]
+  try:
+    avg=sum/total
+  except:
+    avg=0
+  return [avg,good, bad]
 
 def scoreOne(x):
   x=x.lower()
@@ -46,6 +52,5 @@ def scoreThree(x,y,z):
   except:
     return -2
 
-if __name__ == '__main__':
-  print(score(input()))
+
 
