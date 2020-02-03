@@ -1,7 +1,5 @@
 from senticnet5 import word
 
-
-
 def score(s):
   bad = []
   good = []
@@ -48,5 +46,6 @@ def scoreThree(x,y,z):
   except:
     return -2
 
-print(score(input()))
+if __name__ == '__main__':
+  print(score(input()))
 
