@@ -57,17 +57,30 @@
 
 <div class="sentiment"></div>
 <div class="marker"></div>
-
+<script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
 <script>
     var last_value = 0
 
+
     function calculate() {
-        var text = $('.content').val()
-        $.get(`/score/${text}`, (resp) => {
-            console.log(resp.score)
+
+     $.post($SCRIPT_ROOT  + '/score', {
+        content: $('.content').val()
+
+      }, function(resp) {
+        console.log(resp.score)
             update(resp.score)
-        })
-    }
+        console.log(resp.bad)
+         console.log(resp.good)
+      }, 'json');
+      return false;
+    };
+
+
+
+
 
     function calc_posn(value) {
         var width = $('.sentiment').outerWidth()
