@@ -50,6 +50,7 @@
 
 <div class="outer">
     <h1 class="title">Sentiment Analysis</h1>
+    <p>Alex, James, Will</p>
     <textarea oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"
     class="content" placeholder="Type here..." onclick="$(this).attr('placeholder','')"></textarea>
 </div>
@@ -71,7 +72,7 @@
     function calc_posn(value) {
         var width = $('.sentiment').outerWidth()
         var page = window.innerWidth
-        
+
         var slider = (value + 1) / 2 * width
         var offset = (page - width) / 2
         var posn = offset + slider - 20
@@ -89,7 +90,7 @@
 
     function hard_update() {
         var posn = calc_posn(last_value)
-     
+
         $('.marker').css('left', posn)
     }
 
